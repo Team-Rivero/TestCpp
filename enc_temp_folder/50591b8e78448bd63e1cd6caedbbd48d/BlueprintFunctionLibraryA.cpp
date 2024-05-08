@@ -5,7 +5,7 @@
 
 FString UBlueprintFunctionLibraryA::GetPointlessMessage()
 {
-	return FString(TEXT("Rename 1"));
+	return FString(TEXT("Restarting also updates it but is slower I guess."));
 }
 
 double UBlueprintFunctionLibraryA::GetMyPi()
@@ -26,7 +26,7 @@ FAverages UBlueprintFunctionLibraryA::CalculateAverages(const TArray<int32>& InV
 	const int32 Count = TmpArray.Num();
 
 	/* Just in case some clown passed in an empty array! */
-	if (Count == 0) return FAverages();
+	if (Count == 0) return FAverages(0.0f, 0.0f, 0.0f);
 
 	/* Put the values in order */
 	TmpArray.Sort();

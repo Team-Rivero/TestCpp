@@ -7,30 +7,27 @@
 #include "BlueprintFunctionLibraryA.generated.h"
 
 USTRUCT(BlueprintType)
-struct FAverages	//Struct named FAverages
+struct FAverages
 {
-	/* Create 3 Float Variables */
+	FAverages() :
+		Mean(0.0f),
+		Modal(0.0f),
+		Median(0.0f) {};
+
+	FAverages(float InMean, float InMode, float InMedian) :
+		Mean(InMean),
+		Modal(InMode),
+		Median(InMedian) {};
+
 	UPROPERTY(BlueprintReadOnly)
 	float Mean = 0.0f;
-
+	
 	UPROPERTY(BlueprintReadOnly)
 	float Modal = 0.0f;
 
 	UPROPERTY(BlueprintReadOnly)
 	float Median = 0.0f;
 
-	/* Define struct default values */
-	FAverages() :
-		Mean(0.0f),
-		Modal(0.0f),
-		Median(0.0f) {};
-
-	/* Allows you to pass in 3 separate values */
-	FAverages(float InMean, float InMode, float InMedian) :
-		Mean(InMean),
-		Modal(InMode),
-		Median(InMedian) {};
-	
 	GENERATED_BODY()
 };
 
@@ -49,7 +46,7 @@ class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 			BlueprintPure,	//No execution pins
 			meta = (ToolTip = "3.1415BlahBlahBlah ... ",	//Tooltip when hovered
 				CompactNodeTitle = "π"))	//Main Node text
-		static double GetMyPi();
+			static double GetMyPi();
 
 		/*Calculates the three main types of statistical averages. */
 		UFUNCTION(BlueprintCallable,
@@ -59,7 +56,7 @@ class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 	protected:
 	
 	private:
-		static constexpr double Pi = 3.1415926535897932384626433832795;	//constenxpr just means const? 
+		static constexpr double Pi = 3.1415926535897932384626433832795;
 
 		GENERATED_BODY()
 };
