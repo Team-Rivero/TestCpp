@@ -13,9 +13,16 @@ double UBlueprintFunctionLibraryA::GetMyPi()
 	return Pi;
 }
 
+int32 UBlueprintFunctionLibraryA::MyCoolFunction(const float input)
+{
+	float Printpi = input;
+
+	return Printpi;
+}
+
 FAverages UBlueprintFunctionLibraryA::CalculateAverages(const TArray<int32>& InValues)
 {
-	/* duplicate the array, as ew don't want to mess with the original. */
+	/* Duplicate the array, as we don't want to mess with the original. */
 	TArray<int32> TmpArray = InValues;
 	TMap<int32, int32> ModalCount;
 

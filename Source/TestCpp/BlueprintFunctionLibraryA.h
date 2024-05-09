@@ -9,6 +9,8 @@
 USTRUCT(BlueprintType)
 struct FAverages	//Struct named FAverages
 {
+	GENERATED_BODY()
+
 	/* Create 3 Float Variables */
 	UPROPERTY(BlueprintReadOnly)
 	float Mean = 0.0f;
@@ -30,36 +32,35 @@ struct FAverages	//Struct named FAverages
 		Mean(InMean),
 		Modal(InMode),
 		Median(InMedian) {};
-	
-	GENERATED_BODY()
 };
 
 /* Getting Started with C++ practical examples. */
 UCLASS()
 class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 {
-	public:
-		/*A completely pointless function that just returns a canned string message. */
-		UFUNCTION(BlueprintCallable)	//Needed otherwise can't be called from blueprint graph
-		static FString GetPointlessMessage();
+	GENERATED_BODY()
 
-		/*No different than the PI node blueprints already provide,
+	public:
+		/* A completely pointless function that just returns a canned string message. */
+		UFUNCTION(BlueprintCallable)	//Needed otherwise can't be called from blueprint graph
+		static FString GetPointlessMessage(); //Call Function
+
+		/* No different than the PI node blueprints already provide,
 		but this one is better because it uses the π character! */
 		UFUNCTION(BlueprintCallable,
 			BlueprintPure,	//No execution pins
-			meta = (ToolTip = "3.1415BlahBlahBlah ... ",	//Tooltip when hovered
-				CompactNodeTitle = "π"))	//Main Node text
-		static double GetMyPi();
+			meta = (ToolTip = "3.1415BlahBlahBlah...",	//Tooltip when hovered
+				CompactNodeTitle = "π"))	//Node Title Text
+		static double GetMyPi();	//Call Function
 
-		/*Calculates the three main types of statistical averages. */
+		UFUNCTION(BlueprintCallable, BlueprintPure, meta = (ToolTip = "Showcases default input option", CompactNodeTitle = "CoolFunction"))
+		static int32 MyCoolFunction(const float input = 5.0f);
+
+		/* Calculates the three main types of statistical averages. */
 		UFUNCTION(BlueprintCallable,
-			meta = (ToolTip = "Calculates the mean, mode, and median for an array of integer values. "))
+			meta = (ToolTip = "Calculates the mean, mode, and median for an array of integer values."))
 		static FAverages CalculateAverages(const TArray<int32>& InValues);
-	
-	protected:
-	
+		
 	private:
 		static constexpr double Pi = 3.1415926535897932384626433832795;	//constenxpr just means const? 
-
-		GENERATED_BODY()
 };
