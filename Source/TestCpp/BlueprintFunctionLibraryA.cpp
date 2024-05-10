@@ -5,7 +5,7 @@
 
 FString UBlueprintFunctionLibraryA::GetPointlessMessage()
 {
-	return FString(TEXT("Rename 1"));
+	return FString(TEXT("Rename 2"));
 }
 
 double UBlueprintFunctionLibraryA::GetMyPi()
