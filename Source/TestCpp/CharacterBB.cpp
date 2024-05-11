@@ -2,20 +2,21 @@
 
 
 #include "CharacterBB.h"
+#include "GameFramework/PawnMovementComponent.h"
 
 // Sets default values
 ACharacterBB::ACharacterBB()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	GetMovementComponent()->NavAgentProps.bCanCrouch = true;	//Seems to only set default instead of actively changing the bool.
 }
 
 // Called when the game starts or when spawned
 void ACharacterBB::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
@@ -31,4 +32,3 @@ void ACharacterBB::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
-

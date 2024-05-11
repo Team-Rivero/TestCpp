@@ -20,11 +20,11 @@ class TESTCPP_API AMyPlayerControllerBB : public APlayerController
 	
 public:
 	// The Input Mapping Context to use.
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")	//Category creates tabs
 	TObjectPtr<UInputMappingContext> InputMappingContext = nullptr;
 
 	// The Input Action to map to movement.
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")	//Category creates tabs
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
 	TObjectPtr<UInputAction> ActionMove = nullptr;
 
 	//The Input Action to map to looking around.
@@ -46,7 +46,8 @@ protected:
 	void HandleMove(const FInputActionValue& InputActionValue);
 	void HandleLook(const FInputActionValue& InputActionValue);
 	void HandleJump();
-	void HandleCrouch();
+	void StartCrouch();
+	void StopCrouch();
 
 private:
 	// Used to store a reference to the InputComponent cast to an EnhancedInputComponent.
