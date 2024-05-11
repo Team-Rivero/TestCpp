@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "MyPlayerControllerBB.h"
 #include "CharacterBB.h"
 #include "EnhancedInputComponent.h"
@@ -12,7 +11,7 @@ void AMyPlayerControllerBB::OnPossess(APawn* aPawn)
 
 	// Store a reference to the Player's Pawn
 	PlayerCharacter = Cast<ACharacterBB>(aPawn);
-	checkf(PlayerCharacter, TEXT("APlayerControllerBB derived classes should only posess ACharacterBB derived pawns"));
+	checkf(PlayerCharacter, TEXT("AMyPlayerControllerBB derived classes should only posess ACharacterBB derived pawns"));
 	
 	// Get a reference to the EnhancedInputComponent.
 	EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
@@ -42,8 +41,13 @@ void AMyPlayerControllerBB::OnPossess(APawn* aPawn)
 	}
 	if (ActionJump)
 	{
-		EnhancedInputComponent->BindAction(ActionJump, ETriggerEvent::Triggered, this,
+		EnhancedInputComponent->BindAction(ActionJump, ETriggerEvent::Started, this,
 			&AMyPlayerControllerBB::HandleJump);
+	}
+	if (ActionCrouch)
+	{
+		EnhancedInputComponent->BindAction(ActionCrouch, ETriggerEvent::Started, this,
+			&AMyPlayerControllerBB::HandleCrouch);
 	}
 }
 
@@ -88,5 +92,17 @@ void AMyPlayerControllerBB::HandleJump()
 	{
 		PlayerCharacter->UnCrouch();
 		PlayerCharacter->Jump();
+	}
+}
+
+void AMyPlayerControllerBB::HandleCrouch()
+{
+	// Input is 'Digital' (value not used here)
+
+	// Make the Player's Character Pawn crouch.
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->Crouch();
+		// UE_LOG(LogTemp, Warning, TEXT("CROUCHING!!!"));
 	}
 }

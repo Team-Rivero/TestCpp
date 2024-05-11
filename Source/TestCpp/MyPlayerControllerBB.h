@@ -8,7 +8,6 @@
 #include "GameFramework/PlayerController.h"
 #include "MyPlayerControllerBB.generated.h"
 
-
 // Forward Declarations
 class UEnhancedInputComponent;
 class ACharacterBB;
@@ -20,8 +19,12 @@ class TESTCPP_API AMyPlayerControllerBB : public APlayerController
 	GENERATED_BODY()
 	
 public:
-	// The Input Action to map to movement.
+	// The Input Mapping Context to use.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
+	TObjectPtr<UInputMappingContext> InputMappingContext = nullptr;
+
+	// The Input Action to map to movement.
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")	//Category creates tabs
 	TObjectPtr<UInputAction> ActionMove = nullptr;
 
 	//The Input Action to map to looking around.
@@ -32,9 +35,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
 	TObjectPtr<UInputAction> ActionJump = nullptr;
 
-	// The Input Mapping Context to use.
+	//The Input Action to map to Crouching.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
-	TObjectPtr<UInputMappingContext> InputMappingContext = nullptr;
+	TObjectPtr<UInputAction> ActionCrouch = nullptr;
 
 protected:
 	virtual void OnPossess(APawn* aPawn) override;
@@ -43,6 +46,7 @@ protected:
 	void HandleMove(const FInputActionValue& InputActionValue);
 	void HandleLook(const FInputActionValue& InputActionValue);
 	void HandleJump();
+	void HandleCrouch();
 
 private:
 	// Used to store a reference to the InputComponent cast to an EnhancedInputComponent.
@@ -52,5 +56,4 @@ private:
 	//Used to store a reference to the pawn we are controlling.
 	UPROPERTY()
 	ACharacterBB* PlayerCharacter = nullptr;
-
 };
