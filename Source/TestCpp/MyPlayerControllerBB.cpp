@@ -17,6 +17,7 @@ void AMyPlayerControllerBB::OnPossess(APawn* aPawn)
 	checkf(EnhancedInputComponent, TEXT("Unabled to get reference to the EnhancedInputComponent."));
 
 	// Get the local player subsystem.
+	// Just a local variable, we dont need to refer to it again after this
 	UEnhancedInputLocalPlayerSubsystem* InputSubsystem =
 		ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	checkf(InputSubsystem, TEXT("Unable to get reference to the EnhancedInputLocalPlayerSubsystem."));
@@ -45,11 +46,18 @@ void AMyPlayerControllerBB::OnPossess(APawn* aPawn)
 	}
 	if (ActionCrouch)
 	{
-		EnhancedInputComponent->BindAction(ActionCrouch, ETriggerEvent::Started, this,
-			&AMyPlayerControllerBB::StartCrouch);
-
-		EnhancedInputComponent->BindAction(ActionCrouch, ETriggerEvent::Completed, this,
-			&AMyPlayerControllerBB::StopCrouch);
+		EnhancedInputComponent->BindAction(ActionCrouch, ETriggerEvent::Triggered, this,
+			&AMyPlayerControllerBB::Crouching);
+	}
+	if (ActionSprint)
+	{
+		EnhancedInputComponent->BindAction(ActionSprint, ETriggerEvent::Triggered, this,
+			&AMyPlayerControllerBB::Sprint);
+	}
+	if (ActionBlast)
+	{
+		EnhancedInputComponent->BindAction(ActionBlast, ETriggerEvent::Started, this,
+			&AMyPlayerControllerBB::Blast);
 	}
 }
 
@@ -97,25 +105,36 @@ void AMyPlayerControllerBB::HandleJump()
 	}
 }
 
-void AMyPlayerControllerBB::StartCrouch()
+void AMyPlayerControllerBB::Crouching()
 {
 	// Input is 'Digital' (value not used here)
 
 	// Make the Player's Character Pawn crouch.
-	if (PlayerCharacter)
+	if (PlayerCharacter && PlayerCharacter->bIsCrouched == false)
 	{
 		PlayerCharacter->Crouch();
-		// UE_LOG(LogTemp, Warning, TEXT("CROUCHING!!!"));
+	}
+	else
+	{
+		PlayerCharacter->UnCrouch();
 	}
 }
 
-void AMyPlayerControllerBB::StopCrouch()
+void AMyPlayerControllerBB::Sprint()
 {
 	// Input is 'Digital' (value not used here)
 
 	// Make the Player's Character Pawn crouch.
 	if (PlayerCharacter)
 	{
-		PlayerCharacter->UnCrouch();
+		PlayerCharacter->ToggleRunning();
+	}
+}
+
+void AMyPlayerControllerBB::Blast()
+{
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->PsiBlast();
 	}
 }

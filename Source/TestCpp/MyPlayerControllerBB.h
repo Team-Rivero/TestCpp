@@ -39,6 +39,14 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
 	TObjectPtr<UInputAction> ActionCrouch = nullptr;
 
+	//The Input Action to map to Sprinting.
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
+	TObjectPtr<UInputAction> ActionSprint = nullptr;
+
+	//The Input Action to map to Blasting.
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
+	TObjectPtr<UInputAction> ActionBlast = nullptr;
+
 protected:
 	virtual void OnPossess(APawn* aPawn) override;
 	virtual void OnUnPossess() override;
@@ -46,8 +54,9 @@ protected:
 	void HandleMove(const FInputActionValue& InputActionValue);
 	void HandleLook(const FInputActionValue& InputActionValue);
 	void HandleJump();
-	void StartCrouch();
-	void StopCrouch();
+	void Crouching();
+	void Sprint();
+	void Blast();
 
 private:
 	// Used to store a reference to the InputComponent cast to an EnhancedInputComponent.
