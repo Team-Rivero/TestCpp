@@ -33,7 +33,7 @@ enum class EPlayerKeyAction : uint8
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FKeyWalletAction,
 	FString, KeyString, EPlayerKeyAction, KeyAction, bool, IsSuccess);
 
-UCLASS()
+UCLASS(Abstract)
 class TESTCPP_API ACharacterBB : public ACharacter
 {
 	GENERATED_BODY()
@@ -175,23 +175,23 @@ private:
 	bool bHasJumped = false;
 
 	// Health
-	static constexpr int	BaseStatValue	= 100;
-	int						MaxHealth		= BaseStatValue;
-	int						CurrentHealth	= BaseStatValue;
+	static constexpr int BaseStatValue = 100;
+	int	MaxHealth = BaseStatValue;
+	int	CurrentHealth = BaseStatValue;
 
 	// Stamina
-	static constexpr float	MaxStamina					= 100.0f;
-	static constexpr float	JumpStaminaCost				= 25.0f;
-	static constexpr float	RunStaminaCost				= 5.0f;
-	static constexpr float	RestStaminaRebate			= 4.0f;
-	float					CurrentStamina				= MaxStamina;
-	float					StaminaRecuperationFactor	= 1.0f;
+	static constexpr float MaxStamina = 100.0f;
+	static constexpr float JumpStaminaCost = 25.0f;
+	static constexpr float RunStaminaCost = 5.0f;
+	static constexpr float RestStaminaRebate = 4.0f;
+	float CurrentStamina = MaxStamina;
+	float StaminaRecuperationFactor	= 1.0f;
 
 	// Psi Power
-	static constexpr float	MaxPsiPower			= 1000.0f;
-	static constexpr float	PsiRechargeRate		= 1.0f;
-	static constexpr float	PsiBlastCost		= 150.0f;
-	float					CurrentPsiPower		= MaxPsiPower;
+	static constexpr float MaxPsiPower = 1000.0f;
+	static constexpr float PsiRechargeRate = 1.0f;
+	static constexpr float PsiBlastCost	= 150.0f;
+	float CurrentPsiPower = MaxPsiPower;
 
 	// Player Keys
 	TArray<FString> KeyWallet;

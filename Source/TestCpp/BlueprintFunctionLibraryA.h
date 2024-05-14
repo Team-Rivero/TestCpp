@@ -35,7 +35,7 @@ struct FAverages	//Struct named FAverages
 };
 
 /* Getting Started with C++ practical examples. */
-UCLASS()
+UCLASS(Abstract)
 class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()

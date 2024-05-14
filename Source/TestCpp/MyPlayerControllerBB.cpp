@@ -4,6 +4,7 @@
 #include "CharacterBB.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "HudBB.h"
 
 void AMyPlayerControllerBB::OnPossess(APawn* aPawn)
 {
@@ -58,6 +59,11 @@ void AMyPlayerControllerBB::OnPossess(APawn* aPawn)
 	{
 		EnhancedInputComponent->BindAction(ActionBlast, ETriggerEvent::Started, this,
 			&AMyPlayerControllerBB::Blast);
+	}
+	if (ActionCycleUIMode)
+	{
+		EnhancedInputComponent->BindAction(ActionCycleUIMode, ETriggerEvent::Started, this,
+			&AMyPlayerControllerBB::CycleUIMode);
 	}
 }
 
@@ -136,5 +142,13 @@ void AMyPlayerControllerBB::Blast()
 	if (PlayerCharacter)
 	{
 		PlayerCharacter->PsiBlast();
+	}
+}
+
+void AMyPlayerControllerBB::CycleUIMode()
+{
+	if (PlayerHud)
+	{
+		PlayerHud->CycleToNextViewMode();
 	}
 }

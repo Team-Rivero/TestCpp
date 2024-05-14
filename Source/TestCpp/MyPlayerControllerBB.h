@@ -12,6 +12,7 @@
 class UEnhancedInputComponent;
 class ACharacterBB;
 class UInputMappingContext;
+class AHudBB;
 
 UCLASS(Abstract)
 class TESTCPP_API AMyPlayerControllerBB : public APlayerController
@@ -47,6 +48,10 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
 	TObjectPtr<UInputAction> ActionBlast = nullptr;
 
+	//The Input Action to map to Blasting.
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|UI")
+	TObjectPtr<UInputAction> ActionCycleUIMode = nullptr;
+
 protected:
 	virtual void OnPossess(APawn* aPawn) override;
 	virtual void OnUnPossess() override;
@@ -57,6 +62,7 @@ protected:
 	void Crouching();
 	void Sprint();
 	void Blast();
+	void CycleUIMode();
 
 private:
 	// Used to store a reference to the InputComponent cast to an EnhancedInputComponent.
@@ -66,4 +72,7 @@ private:
 	//Used to store a reference to the pawn we are controlling.
 	UPROPERTY()
 	ACharacterBB* PlayerCharacter = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<AHudBB> PlayerHud = nullptr;
 };
