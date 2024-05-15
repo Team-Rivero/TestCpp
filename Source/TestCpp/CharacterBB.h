@@ -23,7 +23,8 @@ enum class EPlayerKeyAction : uint8
 {
 	AddKey UMETA(Tooltip = "Attempt to add a key to player's wallet."),
 	RemoveKey UMETA(Tooltip = "Attempt to remove a key from player's wallet."),
-	TestKey UMETA(Tooltip = "Check if the player has a speicfic key.")
+	TestKey UMETA(Tooltip = "Check if the player has a speicfic key."),
+	CountKeys UMETA(Tooltip = "How many keys in collection?")
 };
 
 //Delegate for when actions occur with the player's keys.
@@ -75,8 +76,13 @@ public:
 	// Called to se the flag indicating the player sprinted since the last update.
 	UFUNCTION(BlueprintCallable, Category = "Player|Movement")
 	void SetHasRan();
-
 #pragma endregion
+
+	// Called whenever something needs the latest stat values re-broadcast from the
+	// character, instead of waiting for something to cause an update via a change.
+	// (Most commonly used when switching UI elements)
+	UFUNCTION(BlueprintCallable, Category = "Player|Stats")
+	void BroadcastCurrentStats();
 
 #pragma region Health
 	// Return the player's current health

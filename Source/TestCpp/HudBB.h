@@ -47,6 +47,12 @@ class TESTCPP_API AHudBB : public AHUD
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UMinimalLayoutBase> MinimalLayoutClass = nullptr;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UModerateLayoutBase> ModerateLayoutClass = nullptr;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UOverloadLayoutBase> OverloadLayoutClass = nullptr;
 
 	//Allow code and blueprints to put the hud in a specific viewmod directly
 	//Possibly useful for cinematic cutscenes etc?
@@ -71,4 +77,19 @@ private:
 
 	//Release any delegate bindings.
 	void ClearAllHandlers();
+
+	UPROPERTY()
+	TObjectPtr<UWorld> World = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UMinimalLayoutBase>  MinimalLayoutWidget = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UModerateLayoutBase> ModerateLayoutWidget = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<UOverloadLayoutBase> OverloadLayoutWidget = nullptr;
+
+	UPROPERTY()
+	TObjectPtr<ACharacterBB> PlayerCharacter = nullptr;
 };

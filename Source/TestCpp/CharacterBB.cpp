@@ -85,15 +85,15 @@ void ACharacterBB::Tick(float DeltaTime)
 	GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Silver,
 		*(FString::Printf(
 			TEXT("Movement - IsCrouched:%d | IsSprinting:%d"), bIsCrouched, bIsRunning)));
-	GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Red,
-		*(FString::Printf(
-			TEXT("Health - Current:%d | Maximum:%d"), CurrentHealth, MaxHealth)));
-	GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Green,
-		*(FString::Printf(
-			TEXT("Stamina - Current:%f | Maximum:%f"), CurrentStamina, MaxStamina)));
-	GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Cyan,
-		*(FString::Printf(
-			TEXT("PsiPower - Current:%f | Maximum:%f"), CurrentPsiPower, MaxPsiPower)));
+	//GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Red,
+	//	*(FString::Printf(
+	//		TEXT("Health - Current:%d | Maximum:%d"), CurrentHealth, MaxHealth)));
+	//GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Green,
+	//	*(FString::Printf(
+	//		TEXT("Stamina - Current:%f | Maximum:%f"), CurrentStamina, MaxStamina)));
+	//GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Cyan,
+	//	*(FString::Printf(
+	//		TEXT("PsiPower - Current:%f | Maximum:%f"), CurrentPsiPower, MaxPsiPower)));
 	GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Orange,
 		*(FString::Printf(TEXT("Keys - %d Keys Currently held"), KeyWallet.Num())));
 
@@ -161,6 +161,24 @@ void ACharacterBB::SetHasJumped()
 void ACharacterBB::SetHasRan()
 {
 	bHasRan = true;
+}
+
+void ACharacterBB::BroadcastCurrentStats()
+{
+	OnHealthChanged.Broadcast(CurrentHealth, CurrentHealth, MaxHealth);
+	OnStaminaChanged.Broadcast(CurrentStamina, CurrentStamina, MaxStamina);
+	OnPsiPowerChanged.Broadcast(CurrentPsiPower, CurrentPsiPower, MaxPsiPower);
+
+	// Make a string of all the keys
+	// If there are ANY members, the string will end with a trailing comma ','
+	// We dont care to remove that here, it doesnt matter.
+	FString AllKeys = FString();
+	for (FString Key : KeyWallet)
+	{
+		AllKeys.Appendf(TEXT("%s,"), &Key);
+	}
+
+	OnKeyWalletAction.Broadcast(AllKeys, EPlayerKeyAction::CountKeys, true);
 }
 
 int ACharacterBB::GetHealth()

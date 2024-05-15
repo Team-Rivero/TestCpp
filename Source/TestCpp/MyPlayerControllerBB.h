@@ -20,6 +20,7 @@ class TESTCPP_API AMyPlayerControllerBB : public APlayerController
 	GENERATED_BODY()
 	
 public:
+#pragma region Character Movement
 	// The Input Mapping Context to use.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")	//Category creates tabs
 	TObjectPtr<UInputMappingContext> InputMappingContext = nullptr;
@@ -47,6 +48,7 @@ public:
 	//The Input Action to map to Blasting.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|Character Movement")
 	TObjectPtr<UInputAction> ActionBlast = nullptr;
+#pragma endregion
 
 	//The Input Action to map to Blasting.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Input|UI")
@@ -71,7 +73,7 @@ private:
 
 	//Used to store a reference to the pawn we are controlling.
 	UPROPERTY()
-	ACharacterBB* PlayerCharacter = nullptr;
+	TObjectPtr<ACharacterBB> PlayerCharacter = nullptr;
 
 	UPROPERTY()
 	TObjectPtr<AHudBB> PlayerHud = nullptr;

@@ -8,7 +8,12 @@
 
 void AMyPlayerControllerBB::OnPossess(APawn* aPawn)
 {
+	//Call the parent method, to let it do anything it needs to
 	Super::OnPossess(aPawn);
+
+	// Store a reference to the HUD
+	PlayerHud = Cast<AHudBB>(GetHUD());
+	checkf(PlayerHud, TEXT("Unable to get reference to the HUD"));
 
 	// Store a reference to the Player's Pawn
 	PlayerCharacter = Cast<ACharacterBB>(aPawn);
@@ -150,5 +155,7 @@ void AMyPlayerControllerBB::CycleUIMode()
 	if (PlayerHud)
 	{
 		PlayerHud->CycleToNextViewMode();
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Orange,
+			*(FString::Printf(TEXT("Maybe change the print"))));
 	}
 }
