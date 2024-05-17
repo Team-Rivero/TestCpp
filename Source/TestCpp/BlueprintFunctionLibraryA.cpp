@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BlueprintFunctionLibraryA.h"
+#include "MyGameInstance.h"
+#include <Kismet/GameplayStatics.h>
 
 FString UBlueprintFunctionLibraryA::GetPointlessMessage()
 {
@@ -14,9 +16,9 @@ double UBlueprintFunctionLibraryA::GetMyPi()
 
 int32 UBlueprintFunctionLibraryA::MyCoolFunction(const float input)
 {
-	float Printpi = input;
+	float PrintInput = input;
 
-	return Printpi;
+	return PrintInput;
 }
 
 FAverages UBlueprintFunctionLibraryA::CalculateAverages(const TArray<int32>& InValues)
@@ -95,4 +97,22 @@ FAverages UBlueprintFunctionLibraryA::CalculateAverages(const TArray<int32>& InV
 	}
 
 	return FAverages(CalcMean, CalcModal, CalcMedian);
+}
+
+void UBlueprintFunctionLibraryA::DoSomeBranch(int32 SomeInput, EMyBranchEnum& Branches)
+{
+	if (SomeInput == 1)
+	{
+		Branches = EMyBranchEnum::BranchA;
+	}
+	else
+	{
+		Branches = EMyBranchEnum::BranchB;
+	}
+}
+
+void UBlueprintFunctionLibraryA::switchValue(float& a_out, float& b_out)
+{
+	a_out = 1.0f;
+	b_out = 1.0f;
 }

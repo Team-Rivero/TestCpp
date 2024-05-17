@@ -34,13 +34,20 @@ struct FAverages	//Struct named FAverages
 		Median(InMedian) {};
 };
 
+UENUM(BlueprintType)
+enum class EMyBranchEnum : uint8
+{
+	BranchA,
+	BranchB
+};
+
 /* Getting Started with C++ practical examples. */
 UCLASS(Abstract)
 class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 
-	public:
+public:
 		/* A completely pointless function that just returns a canned string message. */
 		UFUNCTION(BlueprintCallable)	//Needed otherwise can't be called from blueprint graph
 		static FString GetPointlessMessage(); //Call Function
@@ -53,7 +60,7 @@ class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 				CompactNodeTitle = "π"))	//Node Title Text
 		static double GetMyPi();	//Call Function
 
-		UFUNCTION(BlueprintCallable, BlueprintPure, meta = (ToolTip = "Showcases default input option", CompactNodeTitle = "CoolFunction"))
+		UFUNCTION(BlueprintCallable, meta = (ToolTip = "Showcases default input option", CompactNodeTitle = "CoolFunction"))
 		static int32 MyCoolFunction(const float input = 5.0f);
 
 		/* Calculates the three main types of statistical averages. */
@@ -61,6 +68,17 @@ class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 			meta = (ToolTip = "Calculates the mean, mode, and median for an array of integer values."))
 		static FAverages CalculateAverages(const TArray<int32>& InValues);
 		
-	private:
+		// Multiple Execute Branch Pins
+		UFUNCTION(BlueprintCallable, Meta = (ExpandEnumAsExecs = "Branches"))
+		static void DoSomeBranch(int32 SomeInput, EMyBranchEnum& Branches);	//THE STATIC IS NECESSARY to remove input pin
+
+		// Multiple Return Pins
+		UFUNCTION(BlueprintCallable, Category = "MyBlueprintFunctionLibrary")
+		static void switchValue(float& a_out, float& b_out);
+
+protected:
+
+
+private:
 		static constexpr double Pi = 3.1415926535897932384626433832795;	//constenxpr just means const? 
 };
