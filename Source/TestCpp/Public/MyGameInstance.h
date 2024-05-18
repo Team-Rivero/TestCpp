@@ -33,9 +33,8 @@ class TESTCPP_API UMyGameInstance : public UGameInstance
 	
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	static FSavedVariables SavedVariablesCPP(UMyGameInstance* RefReturn);
+	static FSavedVariables SavedVariablesCPP(UMyGameInstance*& MGI);
 
 private:
-	//UPROPERTY(BlueprintReadOnly)
-	//TObjectPtr<UMyGameInstance> MGI = nullptr;
+
 };
