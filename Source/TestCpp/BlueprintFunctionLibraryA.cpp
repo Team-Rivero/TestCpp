@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BlueprintFunctionLibraryA.h"
-#include "MyGameInstance.h"
 #include <Kismet/GameplayStatics.h>
+#include "MyGameInstance.h"
 
 FString UBlueprintFunctionLibraryA::GetPointlessMessage()
 {
@@ -116,3 +116,26 @@ void UBlueprintFunctionLibraryA::switchValue(float& a_out, float& b_out)
 	a_out = 1.0f;
 	b_out = 1.0f;
 }
+
+AActor* UBlueprintFunctionLibraryA::GetNearestActorOfClass(const UObject* WorldContextObject, TSubclassOf<AActor> ActorClass, FVector Location, float Radius)
+{
+	AActor* NearestActor = NULL;
+	float NearestDistance = Radius;
+
+	TArray<AActor*> OutActors;
+	UGameplayStatics::GetAllActorsOfClass(WorldContextObject, ActorClass, OutActors);
+
+	for (AActor* Actor : OutActors)
+	{
+		float Distance = FVector::Distance(Location, Actor->GetActorLocation());
+
+		if (Distance < NearestDistance)
+		{
+			NearestActor = Actor;
+			NearestDistance = Distance;
+		}
+	}
+
+	return NearestActor;
+}
+

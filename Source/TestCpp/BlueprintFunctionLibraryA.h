@@ -48,33 +48,40 @@ class TESTCPP_API UBlueprintFunctionLibraryA : public UBlueprintFunctionLibrary
 	GENERATED_BODY()
 
 public:
-		/* A completely pointless function that just returns a canned string message. */
-		UFUNCTION(BlueprintCallable)	//Needed otherwise can't be called from blueprint graph
+#pragma region ExampleThings
+	/* A completely pointless function that just returns a canned string message. */
+	UFUNCTION(BlueprintCallable)	//Needed otherwise can't be called from blueprint graph
 		static FString GetPointlessMessage(); //Call Function
 
-		/* No different than the PI node blueprints already provide,
-		but this one is better because it uses the π character! */
-		UFUNCTION(BlueprintCallable,
-			BlueprintPure,	//No execution pins
-			meta = (ToolTip = "3.1415BlahBlahBlah...",	//Tooltip when hovered
-				CompactNodeTitle = "π"))	//Node Title Text
+	/* No different than the PI node blueprints already provide,
+	but this one is better because it uses the π character! */
+	UFUNCTION(BlueprintCallable,
+		BlueprintPure,	//No execution pins
+		meta = (ToolTip = "3.1415BlahBlahBlah...",	//Tooltip when hovered
+			CompactNodeTitle = "π"))	//Node Title Text
 		static double GetMyPi();	//Call Function
 
-		UFUNCTION(BlueprintCallable, meta = (ToolTip = "Showcases default input option", CompactNodeTitle = "CoolFunction"))
-		static int32 MyCoolFunction(const float input = 5.0f);
+	UFUNCTION(BlueprintCallable, meta = (ToolTip = "Showcases default input option", CompactNodeTitle = "CoolFunction"))
+	static int32 MyCoolFunction(const float input = 5.0f);
 
-		/* Calculates the three main types of statistical averages. */
-		UFUNCTION(BlueprintCallable,
-			meta = (ToolTip = "Calculates the mean, mode, and median for an array of integer values."))
-		static FAverages CalculateAverages(const TArray<int32>& InValues);
-		
-		// Multiple Execute Branch Pins
-		UFUNCTION(BlueprintCallable, Meta = (ExpandEnumAsExecs = "Branches"))
-		static void DoSomeBranch(int32 SomeInput, EMyBranchEnum& Branches);	//THE STATIC IS NECESSARY to remove input pin
+	/* Calculates the three main types of statistical averages. */
+	UFUNCTION(BlueprintCallable,
+		meta = (ToolTip = "Calculates the mean, mode, and median for an array of integer values."))
+	static FAverages CalculateAverages(const TArray<int32>& InValues);
 
-		// Multiple Return Pins
-		UFUNCTION(BlueprintCallable, Category = "MyBlueprintFunctionLibrary")
-		static void switchValue(float& a_out, float& b_out);
+	// Multiple Execute Branch Pins
+	UFUNCTION(BlueprintCallable, Meta = (ExpandEnumAsExecs = "Branches"))
+	static void DoSomeBranch(int32 SomeInput, EMyBranchEnum& Branches);	//THE STATIC IS NECESSARY to remove input pin
+
+	// Multiple Return Pins
+	UFUNCTION(BlueprintCallable, Category = "MyBlueprintFunctionLibrary")
+	static void switchValue(float& a_out, float& b_out);
+#pragma endregion
+
+#pragma region PracticalThings
+	UFUNCTION(BlueprintCallable, Category = "Utilities", meta = (WorldContext = "WorldContextObject", DeterminesOutputType = "ActorClass"))
+	static class AActor* GetNearestActorOfClass(const UObject* WorldContextObject, TSubclassOf<AActor> ActorClass, FVector Location, float Radius = 512.0f);
+#pragma endregion
 
 protected:
 

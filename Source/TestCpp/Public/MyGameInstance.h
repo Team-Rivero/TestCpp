@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include <Kismet/GameplayStatics.h>
 #include "MyGameInstance.generated.h"
 
 /**
- * 
+ *	
  */
 
 USTRUCT(BlueprintType)
@@ -33,7 +34,7 @@ class TESTCPP_API UMyGameInstance : public UGameInstance
 	
 public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
-	static FSavedVariables SavedVariablesCPP(UMyGameInstance*& MGI);
+	static void SavedVariablesCPP(FSavedVariables& SavedVariables, UMyGameInstance*& MGI);
 
 private:
 
