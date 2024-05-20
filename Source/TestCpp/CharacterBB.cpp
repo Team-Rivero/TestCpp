@@ -82,19 +82,19 @@ void ACharacterBB::Tick(float DeltaTime)
 
 	// Temporarily display debug information
 
-	GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Silver,
+	GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Silver,
 		*(FString::Printf(
 			TEXT("Movement - IsCrouched:%d | IsSprinting:%d"), bIsCrouched, bIsRunning)));
-	//GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Red,
+	//GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Red,
 	//	*(FString::Printf(
 	//		TEXT("Health - Current:%d | Maximum:%d"), CurrentHealth, MaxHealth)));
-	//GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Green,
+	//GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Green,
 	//	*(FString::Printf(
 	//		TEXT("Stamina - Current:%f | Maximum:%f"), CurrentStamina, MaxStamina)));
-	//GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Cyan,
+	//GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Cyan,
 	//	*(FString::Printf(
 	//		TEXT("PsiPower - Current:%f | Maximum:%f"), CurrentPsiPower, MaxPsiPower)));
-	GEngine->AddOnScreenDebugMessage(-1, 0.49f, FColor::Orange,
+	GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Orange,
 		*(FString::Printf(TEXT("Keys - %d Keys Currently held"), KeyWallet.Num())));
 
 	// UE_LOG(LogTemp, Warning, TEXT("Alternate Method of Information. Prints to message log instead."));
